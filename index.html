@@ -1173,9 +1173,9 @@ async function generateScript() {
   try {
     // Usar modelo Gemini 1.5 Flash
     const model = genAI.getGenerativeModel({
-      //model: "gemini-1.5-flash",
+      model: "gemini-1.5-flash",
       //model: "models/gemini-1.5-flash",
-      model : "gemini-1.5-flash-latest",
+      //model : "gemini-1.5-flash-latest",
       generationConfig: {
         maxOutputTokens: 2048, // Suficiente para las ~1200 palabras
         temperature: 0.7,
