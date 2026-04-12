@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualización Mental — FC Sporting Company</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #3aaa35;
+    --green-dark: #2a8a26;
+    --green-deeper: #1a6618;
+    --green-light: #e8f7e7;
+    --white: #ffffff;
+    --off-white: #f7faf7;
+    --gray: #6b7280;
+    --gray-light: #e5e7eb;
+    --text: #1a2e1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--green);
+    padding: 24px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px; right: -40px;
+    height: 120px;
+    background: var(--green-dark);
+    border-radius: 0 0 60% 60%;
+    opacity: 0.3;
+  }
+
+  .shield-wrap {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+  }
+
+  .shield {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+  }
+
+  .header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 4px;
+  }
+
+  .header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    line-height: 1.1;
+  }
+
+  .header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    position: relative;
+    z-index: 1;
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: var(--white);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--gray-light);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* PAGES */
+  .page {
+    display: none;
+    padding: 24px 20px;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .page.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* INTRO PAGE */
+  .intro-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid var(--gray-light);
+    margin-bottom: 20px;
+  }
+
+  .intro-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+
+  .intro-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gray);
+    margin-bottom: 10px;
+  }
+
+  .intro-card p:last-child { margin-bottom: 0; }
+
+  .steps-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .steps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .step-num {
+    background: var(--green);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px 20px;
+    border: 1px solid var(--gray-light);
+    margin-bottom: 20px;
+  }
+
+  .q-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .q-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .q-hint {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* CHECKBOX OPTIONS */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 2px solid var(--gray-light);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--off-white);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: left;
+  }
+
+  .option-btn:hover {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+
+  .option-btn.selected {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .option-check {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-light);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .option-btn.selected .option-check {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .option-check svg {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .option-btn.selected .option-check svg { opacity: 1; }
+
+  /* RADIO OPTIONS */
+  .radio-btn .option-check {
+    border-radius: 50%;
+  }
+
+  .radio-btn.selected .option-check {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  /* TEXTAREA */
+  textarea {
+    width: 100%;
+    border: 2px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--off-white);
+    resize: none;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    background: white;
+  }
+
+  textarea::placeholder { color: var(--gray); }
+
+  /* TEXT INPUT */
+  input[type="text"] {
+    width: 100%;
+    border: 2px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--off-white);
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--green);
+    background: white;
+  }
+
+  input[type="text"]::placeholder { color: var(--gray); }
+
+  /* OTHER OPTION */
+  .other-input {
+    margin-top: 8px;
+    display: none;
+  }
+
+  .other-input.visible { display: block; }
+
+  /* BUTTONS */
+  .btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(58,170,53,0.35);
+  }
+
+  .btn-primary:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(58,170,53,0.4);
+  }
+
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-primary:disabled {
+    background: var(--gray-light);
+    color: var(--gray);
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--green-dark);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 10px;
+  }
+
+  .btn-secondary:hover {
+    background: var(--green-light);
+  }
+
+  /* ERROR */
+  .error-msg {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .error-msg.visible { display: block; }
+
+  /* LOADING */
+  .loading-page {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+    border: 4px solid var(--green-light);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 24px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-page h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .loading-page p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .loading-steps {
+    margin-top: 28px;
+    text-align: left;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .loading-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--gray);
+    opacity: 0.4;
+    transition: opacity 0.5s;
+  }
+
+  .loading-step.active { opacity: 1; color: var(--green-dark); font-weight: 500; }
+  .loading-step.done { opacity: 0.7; }
+
+  .loading-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-light);
+    flex-shrink: 0;
+  }
+
+  .loading-step.active .loading-dot { background: var(--green); }
+  .loading-step.done .loading-dot { background: var(--green-dark); }
+
+  /* RESULT */
+  .result-header {
+    background: var(--green);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .result-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 4px;
+  }
+
+  .result-header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .result-header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .script-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--gray-light);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .script-block {
+    padding: 20px;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .script-block:last-child { border-bottom: none; }
+
+  .block-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .block-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .instructions-card {
+    background: var(--green-light);
+    border: 1px solid rgba(58,170,53,0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .instructions-card h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+
+  .instructions-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .instructions-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--green-deeper);
+  }
+
+  .instructions-card li::before {
+    content: '→';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .copy-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(58,170,53,0.35);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .copy-btn:hover { background: var(--green-dark); }
+
+  .copy-btn.copied {
+    background: var(--green-deeper);
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .btn-nav {
+    flex: 1;
+    padding: 14px;
+    border-radius: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-back {
+    background: var(--gray-light);
+    color: var(--gray);
+  }
+
+  .btn-next {
+    background: var(--green);
+    color: white;
+    box-shadow: 0 4px 14px rgba(58,170,53,0.3);
+    flex: 2;
+  }
+
+  .btn-next:hover { background: var(--green-dark); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.5px;
+  }
+
+  .footer span {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* SVG shield inline */
+  .shield-svg { display: inline-block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="shield-wrap">
+    <!-- FC Sporting Company Shield SVG -->
+    <svg class="shield" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 5 L195 45 L195 130 Q195 200 100 235 Q5 200 5 130 L5 45 Z" fill="white" stroke="white" stroke-width="2"/>
+      <path d="M100 12 L188 50 L188 130 Q188 195 100 228 Q12 195 12 130 L12 50 Z" fill="#3aaa35"/>
+      <!-- Mountain -->
+      <path d="M30 85 L70 45 L90 65 L100 50 L130 85 Z" fill="white" opacity="0.9"/>
+      <!-- Banner -->
+      <rect x="20" y="110" width="160" height="55" fill="white" rx="2"/>
+      <text x="100" y="138" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="#3aaa35">SPORTING</text>
+      <text x="100" y="158" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="#3aaa35">COMPANY</text>
+      <!-- Bottom stripes -->
+      <rect x="30" y="170" width="28" height="40" fill="white" rx="2"/>
+      <rect x="70" y="165" width="28" height="45" fill="white" rx="2"/>
+      <rect x="102" y="165" width="28" height="45" fill="white" rx="2"/>
+      <rect x="142" y="170" width="28" height="40" fill="white" rx="2"/>
+    </svg>
+  </div>
+  <h1>FC Sporting Company</h1>
+  <h2>Visualización Mental</h2>
+  <p>Tu guion personalizado de rendimiento</p>
+</div>
+
+<div class="progress-wrap" id="progressWrap" style="display:none">
+  <div class="progress-label">
+    <span id="progressText">Pregunta 1 de 8</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<!-- PAGE 0: INTRO -->
+<div class="page active" id="page-intro">
+  <div class="intro-card">
+    <h3>Construye tu guion</h3>
+    <p>A partir de tus respuestas, vamos a generar un guion de visualización mental 100% personalizado para ti.</p>
+    <p>Responde con honestidad — cuanto más específico seas, más poderoso será tu guion.</p>
+    <ul class="steps-list">
+      <li><div class="step-num">1</div><span>Completa las 8 preguntas (menos de 5 minutos)</span></li>
+      <li><div class="step-num">2</div><span>La IA genera tu guion personalizado</span></li>
+      <li><div class="step-num">3</div><span>Grábalo con tu propia voz y escúchalo cada día</span></li>
+    </ul>
+  </div>
+  <button class="btn-primary" onclick="startForm()">Comenzar →</button>
+</div>
+
+<!-- PAGE 1: Posición -->
+<div class="page" id="page-1">
+  <div class="q-card">
+    <div class="q-number">Pregunta 1 de 8</div>
+    <div class="q-title">¿Cuál es tu posición en el campo?</div>
+    <div class="q-hint">Puedes marcar más de una opción si juegas en varias posiciones.</div>
+    <div class="options-grid" id="posiciones">
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Arquero
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Defensa central
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Lateral
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Mediocampista defensivo
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Mediocampista ofensivo
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Extremo
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'posiciones')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Delantero 9
+      </div>
+    </div>
+    <div class="error-msg" id="err-1">Por favor selecciona al menos una posición.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-next" onclick="nextPage(1)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 2: Momento imparable -->
+<div class="page" id="page-2">
+  <div class="q-card">
+    <div class="q-number">Pregunta 2 de 8</div>
+    <div class="q-title">Piensa en un momento donde te sentiste imparable.</div>
+    <div class="q-hint">Puede ser dentro o fuera del fútbol. ¿Qué pasó? Descríbelo brevemente.</div>
+    <textarea id="ans-2" rows="5" placeholder="Ej: En el partido contra... / Cuando entrené... / El día que..."></textarea>
+    <div class="error-msg" id="err-2">Por favor describe ese momento.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(2)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(2)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 3: Estado emocional -->
+<div class="page" id="page-3">
+  <div class="q-card">
+    <div class="q-number">Pregunta 3 de 8</div>
+    <div class="q-title">¿Cómo quieres sentirte antes de un partido importante?</div>
+    <div class="q-hint">Elige hasta 2 opciones.</div>
+    <div class="options-grid" id="estado" data-max="2">
+      <div class="option-btn" onclick="toggleOption(this, 'estado', 2)">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Tranquilo y enfocado
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'estado', 2)">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Intenso y activado
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'estado', 2)">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Seguro y dominante
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'estado', 2)">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Liviano y disfrutando
+      </div>
+      <div class="option-btn" onclick="toggleOption(this, 'estado', 2)">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Concentrado y determinado
+      </div>
+      <div class="option-btn" id="otro-estado-btn" onclick="toggleOption(this, 'estado', 2); toggleOtro('otro-estado')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Otro
+      </div>
+    </div>
+    <div class="other-input" id="otro-estado">
+      <input type="text" id="otro-estado-text" placeholder="Describe cómo quieres sentirte...">
+    </div>
+    <div class="error-msg" id="err-3">Por favor selecciona al menos una opción.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(3)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(3)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 4: Acción a fortalecer -->
+<div class="page" id="page-4">
+  <div class="q-card">
+    <div class="q-number">Pregunta 4 de 8</div>
+    <div class="q-title">¿Qué acción de tu juego quieres fortalecer mentalmente?</div>
+    <div class="q-hint">Ej: penaltis, duelos aéreos, primer toque bajo presión, definición, salidas, pelotas divididas...</div>
+    <textarea id="ans-4" rows="3" placeholder="Escribe la acción o situación que quieres trabajar..."></textarea>
+    <div class="error-msg" id="err-4">Por favor describe la acción que quieres trabajar.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(4)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(4)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 5: Reacción actual al error -->
+<div class="page" id="page-5">
+  <div class="q-card">
+    <div class="q-number">Pregunta 5 de 8</div>
+    <div class="q-title">Cuando cometes un error en un partido, ¿qué pasa en tu cabeza?</div>
+    <div class="q-hint">Elige una opción.</div>
+    <div class="options-grid" id="reaccion-actual">
+      <div class="option-btn radio-btn" onclick="selectRadio(this, 'reaccion-actual')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Me bloqueo y me cuesta salir
+      </div>
+      <div class="option-btn radio-btn" onclick="selectRadio(this, 'reaccion-actual')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Me enojo conmigo mismo
+      </div>
+      <div class="option-btn radio-btn" onclick="selectRadio(this, 'reaccion-actual')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Lo suelto rápido y sigo
+      </div>
+      <div class="option-btn radio-btn" onclick="selectRadio(this, 'reaccion-actual')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Depende del momento del partido
+      </div>
+      <div class="option-btn radio-btn" id="otro-reaccion-btn" onclick="selectRadio(this, 'reaccion-actual'); toggleOtro('otro-reaccion')">
+        <div class="option-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        Otro
+      </div>
+    </div>
+    <div class="other-input" id="otro-reaccion">
+      <input type="text" id="otro-reaccion-text" placeholder="Describe tu reacción habitual...">
+    </div>
+    <div class="error-msg" id="err-5">Por favor selecciona una opción.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(5)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(5)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 6: Reacción ideal -->
+<div class="page" id="page-6">
+  <div class="q-card">
+    <div class="q-number">Pregunta 6 de 8</div>
+    <div class="q-title">Después de un error, ¿cómo quieres reaccionar idealmente?</div>
+    <div class="q-hint">Ej: respirar, hablarme bien, buscar el balón, levantar la cabeza, seguir jugando...</div>
+    <textarea id="ans-6" rows="3" placeholder="Describe tu reacción ideal después de un error..."></textarea>
+    <div class="error-msg" id="err-6">Por favor describe tu reacción ideal.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(6)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(6)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 7: Frase de activación -->
+<div class="page" id="page-7">
+  <div class="q-card">
+    <div class="q-number">Pregunta 7 de 8</div>
+    <div class="q-title">¿Tienes una frase o palabra para activarte mentalmente?</div>
+    <div class="q-hint">Opcional. Si no tienes una, déjalo en blanco y te ayudaremos a construir una.</div>
+    <textarea id="ans-7" rows="3" placeholder="Ej: 'Soy fuerte', 'Al siguiente', 'Ahora'... o déjalo en blanco"></textarea>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(7)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="nextPage(7)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- PAGE 8: Nombre -->
+<div class="page" id="page-8">
+  <div class="q-card">
+    <div class="q-number">Pregunta 8 de 8</div>
+    <div class="q-title">¿Cuál es tu nombre?</div>
+    <div class="q-hint">Para personalizar tu guion.</div>
+    <input type="text" id="ans-8" placeholder="Tu nombre...">
+    <div class="error-msg" id="err-8">Por favor escribe tu nombre.</div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-nav btn-back" onclick="prevPage(8)">← Atrás</button>
+    <button class="btn-nav btn-next" onclick="generateScript()">Generar mi guion →</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="page" id="page-loading">
+  <div class="loading-page">
+    <div class="spinner"></div>
+    <h3>Construyendo tu guion</h3>
+    <p>Estamos personalizando cada bloque<br>con tus respuestas.</p>
+    <div class="loading-steps">
+      <div class="loading-step" id="ls-1"><div class="loading-dot"></div>Analizando tu perfil</div>
+      <div class="loading-step" id="ls-2"><div class="loading-dot"></div>Construyendo escena ancla</div>
+      <div class="loading-step" id="ls-3"><div class="loading-dot"></div>Generando acciones por posición</div>
+      <div class="loading-step" id="ls-4"><div class="loading-dot"></div>Entrenando reacción al error</div>
+      <div class="loading-step" id="ls-5"><div class="loading-dot"></div>Finalizando tu guion</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="page" id="page-result">
+  <div class="result-header">
+    <h3>Tu guion personalizado</h3>
+    <h2 id="result-name">Jugador</h2>
+    <p>Léelo en voz alta, grábalo con tu propia voz<br>y escúchalo cada mañana y cada noche.</p>
+  </div>
+
+  <div class="script-card" id="script-output"></div>
+
+  <div class="instructions-card">
+    <h4>Cómo grabarlo y usarlo</h4>
+    <ul>
+      <li>Grábalo en un lugar tranquilo, sin ruido de fondo</li>
+      <li>Lee en voz pausada — más lento de lo que crees necesario</li>
+      <li>Haz una pausa real entre párrafos</li>
+      <li>No importa si no suena perfecto — tu voz es exactamente lo que necesitas escuchar</li>
+      <li>Escúchalo por las mañanas al despertar o por las noches antes de dormir, con los ojos cerrados</li>
+    </ul>
+  </div>
+
+  <button class="copy-btn" id="copyBtn" onclick="copyScript()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+    Copiar guion completo
+  </button>
+
+  <button class="btn-secondary" onclick="resetForm()">Hacer otro guion</button>
+</div>
+
+<div class="footer">
+  <span>FC Sporting Company</span> · Psicología del Rendimiento
+</div>
+
+<script type="module">
+// Importar la librería de Google Generative AI
+//import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+import { GoogleGenerativeAI } from "https://cdn.skypack.dev/@google/generative-ai";
+//import { GoogleGenerativeAI } from "https://unpkg.com/@google/generative-ai@0.14.1/dist/index.js";
+
+// Configura tu API Key aquí
+//const API_KEY = "AIzaSyBtDg8PwRnI_qNPdFTfTFaXUlTeGZn60CA";
+const API_KEY = "AIzaSyDkF-_DGOd00-CSbIba_tJC9zD9P4f9n_Y"
+const genAI = new GoogleGenerativeAI(API_KEY);
+//const genAI = new GoogleGenerativeAI(API_KEY, {apiVersion: "v1beta"});
+
+let currentPage = 0;
+let fullScriptText = '';
+
+function showPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + (n === 0 ? 'intro' : n === 99 ? 'loading' : n === 100 ? 'result' : n)).classList.add('active');
+  window.scrollTo(0, 0);
+
+  const progressWrap = document.getElementById('progressWrap');
+  if (n >= 1 && n <= 8) {
+    progressWrap.style.display = 'block';
+    const pct = Math.round(((n - 1) / 8) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = 'Pregunta ' + n + ' de 8';
+    document.getElementById('progressPct').textContent = pct + '%';
+  } else {
+    progressWrap.style.display = 'none';
+  }
+}
+
+function startForm() {
+  currentPage = 1;
+  showPage(1);
+}
+
+function toggleOption(el, groupId, max) {
+  if (max && max === 1) return;
+  const group = document.getElementById(groupId);
+  const selected = group.querySelectorAll('.selected');
+
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+  } else {
+    if (max && selected.length >= max) return;
+    el.classList.add('selected');
+  }
+}
+
+function selectRadio(el, groupId) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleOtro(id) {
+  const el = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  if (btn && btn.classList.contains('selected')) {
+    el.classList.add('visible');
+  } else {
+    el.classList.remove('visible');
+  }
+}
+
+function getSelected(groupId) {
+  const group = document.getElementById(groupId);
+  if (!group) return [];
+  return Array.from(group.querySelectorAll('.selected')).map(el => el.textContent.trim());
+}
+
+function showError(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('visible', show);
+}
+
+function nextPage(n) {
+  // Validate
+  if (n === 1) {
+    const sel = getSelected('posiciones');
+    if (sel.length === 0) { showError('err-1', true); return; }
+    showError('err-1', false);
+  }
+  if (n === 2) {
+    const val = document.getElementById('ans-2').value.trim();
+    if (!val) { showError('err-2', true); return; }
+    showError('err-2', false);
+  }
+  if (n === 3) {
+    const sel = getSelected('estado');
+    if (sel.length === 0) { showError('err-3', true); return; }
+    showError('err-3', false);
+  }
+  if (n === 4) {
+    const val = document.getElementById('ans-4').value.trim();
+    if (!val) { showError('err-4', true); return; }
+    showError('err-4', false);
+  }
+  if (n === 5) {
+    const sel = getSelected('reaccion-actual');
+    if (sel.length === 0) { showError('err-5', true); return; }
+    showError('err-5', false);
+  }
+  if (n === 6) {
+    const val = document.getElementById('ans-6').value.trim();
+    if (!val) { showError('err-6', true); return; }
+    showError('err-6', false);
+  }
+  if (n === 8) {
+    const val = document.getElementById('ans-8').value.trim();
+    if (!val) { showError('err-8', true); return; }
+    showError('err-8', false);
+  }
+
+  currentPage = n + 1;
+  showPage(currentPage);
+}
+
+function prevPage(n) {
+  currentPage = n - 1;
+  showPage(currentPage);
+}
+
+function animateLoadingSteps() {
+  const steps = ['ls-1','ls-2','ls-3','ls-4','ls-5'];
+  let i = 0;
+  function next() {
+    if (i > 0) document.getElementById(steps[i-1]).classList.replace('active','done');
+    if (i < steps.length) {
+      document.getElementById(steps[i]).classList.add('active');
+      i++;
+      setTimeout(next, 1800);
+    }
+  }
+  next();
+}
+
+
+
+async function generateScript() {
+  const name = document.getElementById('ans-8').value.trim();
+  if (!name) { showError('err-8', true); return; }
+  showError('err-8', false);
+
+  // Recopilación de datos del formulario
+  const posiciones = getSelected('posiciones').filter(p => p !== 'Otro').join(', ');
+  const momentoImparable = document.getElementById('ans-2').value.trim();
+
+  let estadoArr = getSelected('estado').filter(p => p !== 'Otro');
+  const otroEstadoEl = document.getElementById('otro-estado-btn');
+  if (otroEstadoEl && otroEstadoEl.classList.contains('selected')) {
+    const otroVal = document.getElementById('otro-estado-text').value.trim();
+    if (otroVal) estadoArr.push(otroVal);
+  }
+  const estadoEmocional = estadoArr.join(' y ');
+
+  const accionFortalecer = document.getElementById('ans-4').value.trim();
+
+  let reaccionActualArr = getSelected('reaccion-actual').filter(p => p !== 'Otro');
+  const otroReacEl = document.getElementById('otro-reaccion-btn');
+  if (otroReacEl && otroReacEl.classList.contains('selected')) {
+    const otroVal = document.getElementById('otro-reaccion-text').value.trim();
+    if (otroVal) reaccionActualArr.push(otroVal);
+  }
+  const reaccionActual = reaccionActualArr.join(', ');
+
+  const reaccionIdeal = document.getElementById('ans-6').value.trim();
+  const fraseActivacion = document.getElementById('ans-7').value.trim();
+
+  // Mostrar pantalla de carga
+  showPage(99);
+  animateLoadingSteps();
+
+  // Prompt optimizado para Gemini
+  const prompt = `Actúa como un psicólogo deportivo experto. Escribe un guion de visualización en primera persona para el futbolista ${name}. 
+  Datos clave: Posición ${posiciones}, Momento de éxito: ${momentoImparable}, Estado deseado: ${estadoEmocional}, Acción a mejorar: ${accionFortalecer}, Reacción ideal al error: ${reaccionIdeal}. 
+  Usa esta frase de activación: ${fraseActivacion || 'Crea una de 3 palabras'}.
+  
+  Estructura el guion exactamente en estos 7 bloques:
+  [BLOQUE 1 — RELAJACIÓN]
+  [BLOQUE 2 — ESCENA ANCLA DE CONFIANZA]
+  [BLOQUE 3 — VISUALIZACIÓN DEL PARTIDO]
+  [BLOQUE 4 — ESTADO EMOCIONAL DESEADO]
+  [BLOQUE 5 — REACCIÓN AL ERROR]
+  [BLOQUE 6 — SITUACIÓN DE PRESIÓN ESPECÍFICA]
+  [BLOQUE 7 — CIERRE Y ACTIVACIÓN]
+  
+  Reglas: Tono directo y profesional, tiempo presente, aproximadamente 1000 palabras en total. Devuelve SOLO el guion.`;
+
+  try {
+    // Usar modelo Gemini 1.5 Flash
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      //model: "models/gemini-1.5-flash",
+      //model : "gemini-1.5-flash-latest",
+      generationConfig: {
+        maxOutputTokens: 2048, // Suficiente para las ~1200 palabras
+        temperature: 0.7,
+      } 
+    });
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const scriptText = response.text();
+
+    fullScriptText = scriptText;
+
+    // El resto del código de "Parsing" que ya tienes funciona igual
+    const blocks = [
+      { key: 'BLOQUE 1 — RELAJACIÓN', label: '🌬️ Bloque 1 — Relajación' },
+      { key: 'BLOQUE 2 — ESCENA ANCLA DE CONFIANZA', label: '⚡ Bloque 2 — Escena ancla de confianza' },
+      { key: 'BLOQUE 3 — VISUALIZACIÓN DEL PARTIDO', label: '⚽ Bloque 3 — Visualización del partido' },
+      { key: 'BLOQUE 4 — ESTADO EMOCIONAL DESEADO', label: '🔥 Bloque 4 — Estado emocional deseado' },
+      { key: 'BLOQUE 5 — REACCIÓN AL ERROR', label: '💪 Bloque 5 — Reacción al error' },
+      { key: 'BLOQUE 6 — SITUACIÓN DE PRESIÓN ESPECÍFICA', label: '🎯 Bloque 6 — Situación de presión' },
+      { key: 'BLOQUE 7 — CIERRE Y ACTIVACIÓN', label: '✅ Bloque 7 — Cierre y activación' },
+    ];
+
+    let outputHtml = '';
+    for (let i = 0; i < blocks.length; i++) {
+      const startTag = '[' + blocks[i].key + ']';
+      const nextBlock = blocks[i+1] ? '[' + blocks[i+1].key + ']' : null;
+
+      let startIdx = scriptText.indexOf(startTag);
+      if (startIdx === -1) continue;
+      startIdx += startTag.length;
+
+      let endIdx = nextBlock ? scriptText.indexOf(nextBlock) : scriptText.length;
+      if (endIdx === -1) endIdx = scriptText.length;
+
+      const blockContent = scriptText.substring(startIdx, endIdx).trim();
+
+      outputHtml += `
+        <div class="script-block">
+          <div class="block-label">${blocks[i].label}</div>
+          <div class="block-text">${blockContent}</div>
+        </div>
+      `;
+    }
+
+    document.getElementById('script-output').innerHTML = outputHtml || `<div class="script-block"><div class="block-text">${scriptText}</div></div>`;
+    document.getElementById('result-name').textContent = name;
+    showPage(100);
+
+  } catch (err) {
+    console.error("Error con Gemini:", err);
+    showPage(100);
+    document.getElementById('script-output').innerHTML = `<div class="script-block">Error al conectar con la IA. Revisa tu conexión o API Key.</div>`;
+  }
+}
+
+
+function copyScript() {
+  if (!fullScriptText) return;
+  navigator.clipboard.writeText(fullScriptText).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Guion copiado';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar guion completo';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+function resetForm() {
+  // Reset all inputs
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('textarea').forEach(t => t.value = '');
+  document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+  document.querySelectorAll('.other-input').forEach(i => i.classList.remove('visible'));
+  document.querySelectorAll('.loading-step').forEach(s => { s.classList.remove('active','done'); });
+  fullScriptText = '';
+  currentPage = 0;
+  showPage(0);
+}
+
+// EXPOSICIÓN GLOBAL DE FUNCIONES
+// Esto permite que los botones del HTML (onclick) encuentren las funciones
+window.startForm = startForm;
+window.nextPage = nextPage;
+window.prevPage = prevPage;
+window.toggleOption = toggleOption;
+window.selectRadio = selectRadio;
+window.toggleOtro = toggleOtro;
+window.generateScript = generateScript;
+window.copyScript = copyScript;
+window.resetForm = resetForm;
+
+</script>
+</body>
+</html>
